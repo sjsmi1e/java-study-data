@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Class-Path: spring-core-5.0.9.RELEASE.jar logback-core-1.2.3.jar commo
+ ns-pool2-2.5.0.jar snakeyaml-1.19.jar HikariCP-2.7.9.jar mybatis-spri
+ ng-boot-autoconfigure-1.3.1.jar commons-codec-1.11.jar mybatis-spring
+ -boot-starter-1.3.1.jar jul-to-slf4j-1.7.25.jar spring-webmvc-5.0.9.R
+ ELEASE.jar jackson-databind-2.9.6.jar spring-boot-starter-logging-2.0
+ .5.RELEASE.jar jackson-datatype-jdk8-2.9.6.jar javax.annotation-api-1
+ .3.2.jar validation-api-2.0.1.Final.jar spring-beans-5.0.9.RELEASE.ja
+ r spring-boot-starter-websocket-2.0.4.RELEASE.jar tomcat-embed-websoc
+ ket-8.5.34.jar httpcore-4.4.10.jar spring-websocket-5.0.9.RELEASE.jar
+  tomcat-embed-el-8.5.34.jar druid-1.0.18.jar tools.jar activation-1.1
+ .1.jar jackson-module-parameter-names-2.9.6.jar jackson-core-2.9.6.ja
+ r spring-tx-5.0.9.RELEASE.jar jaxb-api-2.3.0.jar commons-lang3-3.4.ja
+ r spring-expression-5.0.9.RELEASE.jar spring-messaging-5.0.9.RELEASE.
+ jar spring-boot-starter-json-2.0.5.RELEASE.jar aliyun-java-sdk-core-4
+ .0.3.jar spring-jdbc-5.0.9.RELEASE.jar mysql-connector-java-5.1.25.ja
+ r spring-boot-autoconfigure-2.0.5.RELEASE.jar mybatis-generator-core-
+ 1.3.5.jar slf4j-api-1.7.25.jar spring-boot-starter-2.0.5.RELEASE.jar 
+ spring-boot-2.0.5.RELEASE.jar log4j-api-2.10.0.jar httpclient-4.5.6.j
+ ar jackson-annotations-2.9.0.jar hibernate-validator-6.0.12.Final.jar
+  spring-context-5.0.9.RELEASE.jar jboss-logging-3.3.2.Final.jar gson-
+ 2.8.5.jar jconsole.jar spring-aop-5.0.9.RELEASE.jar mybatis-spring-1.
+ 3.1.jar spring-boot-starter-tomcat-2.0.5.RELEASE.jar jaxb-core-2.1.14
+ .jar spring-jcl-5.0.9.RELEASE.jar jedis-2.9.0.jar logback-classic-1.2
+ .3.jar classmate-1.3.4.jar tomcat-embed-core-8.5.34.jar jaxb-impl-2.1
+ .jar jackson-datatype-jsr310-2.9.6.jar log4j-to-slf4j-2.10.0.jar myba
+ tis-3.4.5.jar spring-web-5.0.9.RELEASE.jar spring-boot-starter-web-2.
+ 0.5.RELEASE.jar spring-boot-starter-jdbc-2.0.5.RELEASE.jar
+Main-Class: com.fehead.App
+

@@ -1,0 +1,65 @@
+V1.1版本功能说明
+
+登陆与注册
+
+增加用户（测试）
+/user/addUser:({user_name},{user_password},{user_tel})
+
+会议模块
+/conference/all：（无参数）(GET)
+return List<Conference>
+请求所有的会议详细数据
+
+/conference/byId：({conf_id:val}) (GET)
+return Conference
+请求指定会议id的详细数据
+
+/conference/byName：({conf_name:val}) (GET)
+return Conference
+请求指定会议名字的详细数据
+
+用户模块
+5.3.1 通用用户请求
+
+/user/my_conf：({user_id:val})(GET)
+return Conference
+请求指定用户的会议信息
+
+V1.2版本功能说明
+/user/init_conf：()(GET).
+return ({message:success}),({message:fail})
+
+/user/ask_for_conf：({conf_id:val1,user_id:val2,role_id:val3})(GET)
+return ({message:success}),({message:fail})
+用户申请参加会议
+
+/user/self_info/update：（user_id:val1, user_name:val2, user_sex:val3, user_age:val4,user_desc:val5）(POST)
+return ({message:success}),({message:fail})
+用户信息补全
+
+
+/user/master/manage_asking：({conf_id:val1,user_id:val2,asking_user_id:val3,is_agree:val4,role_id:val5)(POST)	<is_agree>表示主持人选择是否同意该用户的加入请求，同意为1，不同意为0
+return conf_id,user_id,is_agree,message:success(or fail)
+主持人处理用户的加入请求
+
+/user/master/invite：({conf_id:val1,user_id:val2,asked_user_id:val3,role_id:val4})(POST)
+return conf_id,user_id,is_agree,message:success(or fail)
+主持人邀请用户加入
+
+/user/organizer/manage_asking：({conf_id:val1,user_id:val2,asking_user_id:val3,is_agree:val4})(POST)	<is_agree>表示组织者选择是否同意该用户的加入请求，同意为1，不同意为0
+return conf_id,user_id,is_agree,message:success(or fail)
+组织者处理用户的加入请求
+
+/user/rater/show_project_all：({conf_id:val1,user_id:val2})(POST)
+return List<Project>
+	评委获取所有项目组详细信息
+
+/user/rater/show_project_by_id：
+({conf_id:val1,user_id:pro_id})(POST)
+return Project
+评委获取某一项目组详细信息
+
+
+
+
+

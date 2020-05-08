@@ -1,0 +1,11 @@
+spring:
+  activemq:
+    user: smile
+    password: 789396
+    broker-url: tcp://localhost:61616
+    in-memory: false
+    pool:
+      enabled: true
+      max-connections: 10
+
+

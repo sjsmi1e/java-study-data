@@ -1,0 +1,42 @@
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    database: 1
+    timeout: 2000
+    jedis:
+      pool:
+        max-idle: 8
+        max-active: 8
+        max-wait: 1
+        min-idle: 0
+
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: smile
+    password: 789396
+    in-memory: false
+    pool:
+      enabled: true
+      max-connections: 10
+
+  mail:
+    default-encoding: utf-8
+    ##qq邮箱
+    host: smtp.126.com
+    username: shi1043110319@126.com
+    password: shi789396
+    properties:
+      mail:
+        smtp:
+          auth: true  # 开启邮箱验证
+          timeout: 25000 # 超时
+          starttls:
+            enable: true  # 安全协议
+            required: true
+  thymeleaf:
+    prefix: classpath:/templates/
+    cache: false
+  mvc:
+    static-path-pattern: /static/**
+

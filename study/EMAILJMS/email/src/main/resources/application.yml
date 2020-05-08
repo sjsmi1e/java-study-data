@@ -1,0 +1,23 @@
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+  mail:
+    default-encoding: utf-8
+    ##qq邮箱
+    host: smtp.qq.com
+    username: 1043110319@qq.com
+    password: jkygykouxjcabcjh
+    properties:
+      mail:
+        smtp:
+          auth: true  # 开启邮箱验证
+          timeout: 25000 # 超时
+          starttls:
+            enable: true  # 安全协议
+            required: true
+  ##配置jsp
+  mvc:
+#    view:
+#      prefix: /WEB-INF/jsp/
+#      suffix: .jsp
+

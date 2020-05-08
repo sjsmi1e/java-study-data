@@ -1,0 +1,32 @@
+server:
+  port: 9001
+
+#spring:
+#  application:
+#    name: nacos-payment-provider
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 106.13.93.232:1111 #配置Nacos地址
+
+spring:
+  application:
+    name: nacos-payment-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 106.13.93.232:1111 #服务注册中心地址
+      config:
+        server-addr: 106.13.93.232:1111 #配置中心地址
+        file-extension: yaml #指定yaml格式的配置
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+
+

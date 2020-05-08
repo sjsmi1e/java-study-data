@@ -1,0 +1,30 @@
+server:
+  port: 10003
+
+spring:
+  application:
+    name: seata-account-service
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: my_tx_group
+    nacos:
+      discovery:
+        server-addr: 106.13.93.232:1111
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://106.13.93.232:3306/seata_account?serverTimezone=UTC
+    username: root
+    password: 123456
+
+feign:
+  hystrix:
+    enabled: false
+
+logging:
+  level:
+    io:
+      seata: info
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
