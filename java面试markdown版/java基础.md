@@ -28,7 +28,7 @@ Object类
 
 ### **toString() **
 
-### 默认输出对象地址
+默认输出对象地址
 
 ### hashCode 与 equals (重要)
 
@@ -64,7 +64,17 @@ hashCode() 的默认行为是对堆上的对象产生独特值。如果没有重
 
 深拷贝：即将引用类型的属性内容也拷贝一份新的。即指针指向不同的地址，地址值不相等。（实现：序列化、重写clone（） ）
 
-**Wait() notify() notifyAll()**
+### Wait() 
+
+Causes the current thread to wait until another thread invokes the notify() method or the notifyAll() method for this object.
+
+### notify() 
+
+Wakes up a single thread that is waiting on this object's monitor.
+
+### notifyAll()
+
+Wakes up all threads that are waiting on this object's monitor.
 
 # reference 类型
 
@@ -109,7 +119,7 @@ public static void main(String[] args) {
 
 用例如下：
 
-```
+```java
 public static void main(String[] args) {
     //定义一个软引用列表
     List<SoftReference<Integer>> softList = new ArrayList<>();
@@ -159,7 +169,7 @@ public static void main(String[] args) {
 
 jvm参数：`-Xms5m -Xmx5m`
 
-```
+```java
 public static void main(String[] args) {
     final ReferenceQueue queue = new ReferenceQueue();
 
@@ -386,7 +396,7 @@ ACC_SYNCHRONIZED访问标志是否被设置，如果设置了，执行线程将�
 
 ![](media/21bb7809a4880846e92d6f4a3f0a3704.png)
 
-#### 安全发布对象
+#### 如何安全发布对象
 
 ![](media/18cdfcad43b4aa9ab3416cdc6055ff80.png)
 
@@ -427,7 +437,7 @@ JAVA线程状态：
 
 ## ThreadLocal及源码分析
 
-ThreadLocal即线程内部变量，当并发线程以顺势性能为代价去实现线程安全性问题时，我们可以使用ThreadLocal去使用线程内部变量达到线程安全，相对于锁，自然快了很多。
+ThreadLocal即线程内部变量，当并发线程以损失性能为代价去实现线程安全性问题时，我们可以使用ThreadLocal去使用线程内部变量达到线程安全，相对于锁，自然快了很多。
 
 例子：
 
@@ -462,27 +472,9 @@ ThreadLocal即线程内部变量，当并发线程以顺势性能为代价去实
     }
 ```
 
-源码分析
+[源码分析跳转](#jump)
 
-```java
-    public T get() {
-        Thread t = Thread.currentThread();
-        ThreadLocalMap map = getMap(t);
-        if (map != null) {
-            ThreadLocalMap.Entry e = map.getEntry(this);
-            if (e != null) {
-                @SuppressWarnings("unchecked")
-                T result = (T)e.value;
-                return result;
-            }
-        }
-        return setInitialValue();
-    }
-```
 
-![1563617399620](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563617399620.png)
-
-继承弱引用，所以为null就会被gc，当遇到hash碰撞时，使用nextIndex（）的方法解决。
 
 同步容器：
 ----------
@@ -532,7 +524,7 @@ TreeMap--ConcurrentSkipListMap
 
   解决ABA问题
 
-  使用AtomicStampedReference
+  使用AtomicStampedReference（多了一个版本号）
 
   ![1560135093993](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1560135093993.png)
 
@@ -693,6 +685,8 @@ Yield：
 
 ![](media/767b636351d7d17bf73c175e82aa781d.png)
 
+<a name="jump"></a>
+
 ThreadLocal
 -----------
 
@@ -784,19 +778,6 @@ autom
 
 Master-Worker
 
-JVM
-===
-
-## 运行时数据区图
-
-### jdk1.7
-
-![1561811814051](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1561811814051.png)
-
-### jdk1.8
-
-![1561811833396](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1561811833396.png)
-
 反射：
 ------
 
@@ -838,6 +819,8 @@ Java反射就是在运行状态中，对于任意一个类，都能够知道这�
 
 类加载子系统：
 --------------
+
+以Robot.java源文件为例：
 
 ![](media/9e03f1a56bd67c288a2839af2fe160e2.png)
 
