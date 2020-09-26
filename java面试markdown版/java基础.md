@@ -258,6 +258,97 @@ IO流
 
 ![https://images2015.cnblogs.com/blog/999727/201611/999727-20161109130405092-2025696523.png](media/02b8ffdb6d4a2a63c58d65cee8166120.png)
 
+## 线程的io流通信（管道输入/输出流
+
+）
+
+管道输入/输出流和普通文件的输入/输出流或者网络输入、输出流不同之处在于**管道输入/输出流主要用于线程之间的数据传输**，而且传输的媒介为**内存**。
+
+管道输入/输出流主要包括下列两类的实现：
+
+**面向字节**： PipedOutputStream、 PipedInputStream
+
+**面向字符**: PipedWriter、 PipedReader
+
+### 第一个管道输入/输出流实例
+
+writeMethod方法
+
+```java
+    public void writeMethod(PipedOutputStream out) {
+        try {
+            System.out.println("write :");
+            for (int i = 0; i < 300; i++) {
+                String outData = "" + (i + 1);
+                out.write(outData.getBytes());
+                System.out.print(outData);
+            }
+            System.out.println();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+readMethod方法
+
+```java
+    public void readMethod(PipedInputStream input) {
+        try {
+            System.out.println("read  :");
+            byte[] byteArray = new byte[20];
+            int readLength = input.read(byteArray);
+            while (readLength != -1) {
+                String newData = new String(byteArray, 0, readLength);
+                System.out.print(newData);
+                readLength = input.read(byteArray);
+            }
+            System.out.println();
+            input.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+测试方法
+
+```java
+    public static void main(String[] args) {
+
+        try {
+            WriteData writeData = new WriteData();
+            ReadData readData = new ReadData();
+
+            PipedInputStream inputStream = new PipedInputStream();
+            PipedOutputStream outputStream = new PipedOutputStream();
+
+            // inputStream.connect(outputStream);
+            outputStream.connect(inputStream);
+
+            ThreadRead threadRead = new ThreadRead(readData, inputStream);
+            threadRead.start();
+
+            Thread.sleep(2000);
+
+            ThreadWrite threadWrite = new ThreadWrite(writeData, outputStream);
+            threadWrite.start();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+```
+
+我们上面定义了两个方法**writeMethod**和**readMethod**,前者用于**写字节/字符**（取决于你用的是**PipedOuputStream**还是**PipedWriter**），后者用于读**取字节/字符**（取决于你用的是**PipedInputStream**还是**PipedReader**）.我们定义了两个线程**threadRead**和**threadWrite** ，threadRead线程运行readMethod方法，threadWrite运行writeMethod方法。然后 通过**outputStream.connect(inputStream)**或**inputStream.connect(outputStream)使两个管道流产生链接**，这样就可以将数据进行输入与输出了。
+
+运行结果：
+![运行结果](media/16260e76ff498d4b)
+
 网络编程
 ========
 
@@ -392,9 +483,49 @@ ACC_SYNCHRONIZED访问标志是否被设置，如果设置了，执行线程将�
 
 #### Volatile：
 
+在 JDK1.2 之前，Java的内存模型实现总是从**主存**（即共享内存）读取变量，是不需要进行特别的注意的。而在当前的 Java 内存模型下，线程可以把变量保存**本地内存**（比如机器的寄存器）中，而不是直接在主存中进行读写。这就可能造成一个线程在主存中修改了一个变量的值，而另外一个线程还继续使用它在寄存器中的变量值的拷贝，造成**数据的不一致**。
+要解决这个问题，就需要把变量声明为 **volatile**，这就指示 JVM，这个变量是不稳定的，每次使用它都到主存中进行读取。
+
 ![](media/6015f8588e6f9b9a8bd8f2bc9680b19a.png)
 
 ![](media/21bb7809a4880846e92d6f4a3f0a3704.png)
+
+假如你把while循环代码里加上任意一个输出语句或者sleep方法你会发现死循环也会停止，不管isRunning变量是否被加上了上volatile关键字。
+
+加上输出语句：
+
+```java
+    while (isRunning == true) {
+            int a=2;
+            int b=3;
+            int c=a+b;
+            m=c;
+            System.out.println(m);
+        }1234567
+```
+
+加上sleep方法：
+
+```java
+        while (isRunning == true) {
+            int a=2;
+            int b=3;
+            int c=a+b;
+            m=c;
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }123456789101112
+```
+
+**这是为什么呢？**
+
+因为：JVM会尽力保证内存的可见性，即便这个变量没有加同步关键字。换句话说，只要CPU有时间，JVM会尽力去保证变量值的更新。这种与volatile关键字的不同在于，volatile关键字会强制的保证线程的可见性。而不加这个关键字，JVM也会尽力去保证可见性，但是如果CPU一直有其他的事情在处理，它也没办法。最开始的代码，一直处于死循环中，CPU处于一直占用的状态，这个时候CPU没有时间，JVM也不能强制要求CPU分点时间去取最新的变量值。而加了输出或者sleep语句之后，CPU就有可能有时间去保证内存的可见性，于是while循环可以被终止。
+
+
 
 #### 如何安全发布对象
 

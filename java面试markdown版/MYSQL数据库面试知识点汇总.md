@@ -1,11 +1,3 @@
-作者：毛里求斯的爱
-
-链接：
-
-https://www.nowcoder.com/discuss/135748?type=5&order=4&pos=5&page=1
-
-来源：牛客网
-
 ## 一、基本概念
 
 #### **1.主键、外键、超键、候选键**
